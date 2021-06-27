@@ -1,8 +1,8 @@
+import { RowItem } from "../interfaces";
 import { ActionTypes, GET_TABLE_DATA_SUCCESS } from "./actions";
 
-interface State {
-    data: any,
-    ///написать тип
+export interface State {
+    data: RowItem[],
     loading: boolean;
     isError: boolean;
     // написать логику

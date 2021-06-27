@@ -1,0 +1,13 @@
+.table-container {
+    width: 950px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.button {
+    margin-top: 10px;
+    width: 200px;
+    height: 40px;
+}
+

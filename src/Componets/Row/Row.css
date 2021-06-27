@@ -1,0 +1,39 @@
+.row {
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid black;
+}
+
+.row:last-child {
+    border-bottom: 0
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+    height: 50px;
+    border-right: 1px solid black;
+}
+
+.cell:nth-child(1) {
+    justify-content: center;
+    width: 50px;
+}
+
+.cell:nth-child(2) {
+    width: 250px;
+}
+
+.cell:nth-child(3) {
+    width: 600px;
+}
+
+.cell:nth-child(4) {
+    justify-content: center;
+    width: 50px;
+}
+
+.cell:last-child {
+    border-right: 0px;
+}

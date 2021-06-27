@@ -1,4 +1,5 @@
 import { Action } from "redux";
+import { RowItem } from "../interfaces";
 
 export const GET_TABLE_DATA_SUCCESS = 'GET_TABLE_DATA_SUCCESS';
 export const GET_TABLE_DATA_ERROR = 'GET_TABLE_DATA_ERROR';
@@ -9,7 +10,7 @@ interface AppAction extends Action {
 
 interface GetTableDataSuccess extends AppAction {
     type: typeof GET_TABLE_DATA_SUCCESS,
-    payload: any;
+    payload: RowItem[];
     //исправить
 }
 
@@ -17,7 +18,7 @@ interface GetTableDataSuccess extends AppAction {
 export type ActionTypes =  GetTableDataSuccess;
 
 export const getTableData = () => {
-    return async (dispatch: any) => {
+    return async (dispatch: any)=> {
         try {
             const response = await fetch('https://jsonplaceholder.typicode.com/posts');
             const tableData = await response.json();
@@ -26,10 +27,9 @@ export const getTableData = () => {
             console.log('ошибка');
         }
     }
-    // написать не any
 }
 
-const getTableDataSuccess = (tableData: any): GetTableDataSuccess => ({
+const getTableDataSuccess = (tableData: RowItem[]): GetTableDataSuccess => ({
     type: GET_TABLE_DATA_SUCCESS,
     payload: tableData
 })
