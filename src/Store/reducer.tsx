@@ -1,5 +1,5 @@
 import { RowItem } from "../interfaces";
-import { ActionTypes, GET_TABLE_DATA_SUCCESS } from "./actions";
+import { ActionTypes, DELETE_DATA_SUCCESS, GET_TABLE_DATA_SUCCESS } from "./actions";
 
 export interface State {
     data: RowItem[],
@@ -22,7 +22,12 @@ export const reducer = (state = initialState, action: ActionTypes): State => {
                 ...state,
                 data: action.payload
             }
-
+        case DELETE_DATA_SUCCESS: 
+            const filteredData = state.data.filter((item) => item.id !== action.payload)
+            return {
+                ...state,
+                data: filteredData
+            }
         default: return state;
     }
    

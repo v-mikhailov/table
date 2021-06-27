@@ -15,11 +15,9 @@ const App = (): JSX.Element => {
     dispatch(getTableData());
   }, [dispatch])
 
-
-
     return (
       <div className='page-container'>
-        <Table data={tableData.data} rowCount={10}/>
+        <Table data={tableData.data} rowCount={10} step={10}/>
       </div>
     )
 }
