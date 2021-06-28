@@ -15,7 +15,6 @@ const Row: React.FC<Props> = ({data}: Props): JSX.Element => {
         dispatch(deleteData(id));
     }
 
-        
     return (
         <div className="row">
             <div className="cell">{id}</div>

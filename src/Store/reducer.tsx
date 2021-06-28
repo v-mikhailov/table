@@ -2,7 +2,7 @@ import { RowItem } from "../interfaces";
 import { ActionTypes, DELETE_DATA_SUCCESS, GET_TABLE_DATA_SUCCESS, START_LOADING_DATA } from "./actions";
 
 export interface State {
-    data: RowItem[],
+    data: RowItem[];
     isLoading: boolean;
 }
 
