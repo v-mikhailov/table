@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { RowItem } from '../../interfaces';
+import React, { useReducer, useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RowItem } from '../interfaces';
+import { State } from '../Store/reducer';
 
-import Row from '../Row/Row';
-import './Table.css';
+import Row from './Row';
 
 interface Props {
     data: RowItem[];
@@ -13,6 +15,28 @@ interface Props {
 const Table: React.FC<Props> = ({data, rowCount, step}: Props): JSX.Element => {
     const [rowCounter, setRowCounter] = useState(rowCount);
     const [inputValue, setInputValue] = useState('');
+    const [filteredData, setFilteredData] = useState(data);
+    const [isNotFound, setIsNotFound] = useState(false)
+    const isLoading = useSelector((state: State) => state.isLoading);
+
+    useEffect(() => {
+        setFilteredData(data.slice(0, rowCounter))
+        if (inputValue) {
+            setIsNotFound(false);
+            setFilteredData(filteredData => {
+               const newData = filteredData.filter((item) => `${item.body}${item.id}${item.title}${item.userId}`
+                .includes(inputValue))
+
+                if (newData.length === 0) {
+                    setIsNotFound(true)
+                }
+
+                return newData
+            })
+
+        }
+
+    }, [data, rowCounter, inputValue])
 
     const showMoreRows = (): void => {
         setRowCounter(rowCounter + step);
@@ -20,6 +44,9 @@ const Table: React.FC<Props> = ({data, rowCount, step}: Props): JSX.Element => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
+        if (e.target.value === '') {
+            setRowCounter(rowCount)
+        }
     }
 
     return (
@@ -34,9 +61,9 @@ const Table: React.FC<Props> = ({data, rowCount, step}: Props): JSX.Element => {
                     <div className="cell cell-header"></div>
                 </div>
                 {
-                    data.length > 0 && data.slice(0, rowCounter)
-                    .filter((item) => `${item.body}${item.id}${item.title}${item.userId}`.includes(inputValue))
-                    .map((rowData, index) => <Row key={index} data={rowData} />)
+                    isLoading ? <span className="message">Загрузка</span> 
+                        : !isNotFound ? filteredData.map((rowData, index) => <Row key={index} data={rowData} />) 
+                            : <span className="message">Совпадений не найдено</span>
                 }
                 </div>
                 <button className="button" onClick={showMoreRows} disabled={rowCounter >= data.length}>Показать еще</button>

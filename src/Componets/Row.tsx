@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { RowItem } from '../../interfaces';
-import { deleteData } from '../../Store/actions';
-import './Row.css';
+import { RowItem } from '../interfaces';
+import { deleteData } from '../Store/actions';
 
 interface Props {
     data: RowItem;
